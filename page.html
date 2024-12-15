@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Baru</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <style>
+        /* Reset & Basic Styling */
+        
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: "Arial", sans-serif;
+            box-sizing: border-box;
+            background-color: #fffacd;
+        }
+        /* Navbar Styles */
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 5px 15px;
+            background-color: #fffacd;
+            /* Warna solid default */
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Warna putih pudar */
+            color: black;
+            /* Warna teks tetap hitam atau bisa disesuaikan */
+            box-shadow: none;
+            /* Hilangkan bayangan saat pudar */
+        }
+        
+        .container {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        #searchForm {
+            display: flex;
+            /* Menggunakan flexbox untuk search bar */
+            align-items: center;
+            /* Menyelaraskan item secara vertikal */
+            margin-left: auto;
+            /* Menempatkan search bar di sebelah kanan */
+            margin-right: 600px;
+            position: relative;
+            top: -45px;
+        }
+        
+        .form-control {
+            margin: 0;
+            /* Menghapus margin default */
+            width: 200px;
+        }
+        
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ff8c00;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            margin-top: 15px;
+        }
+        
+        .nav-item {
+            text-decoration: none;
+            color: #ff8c00;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            color: #ffca8a;
+        }
+        
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.9);
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                padding: 10px;
+                border-radius: 5px;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        .content {
+            margin-top: 100px;
+            padding-left: 80px;
+            padding-right: 80px;
+        }
+        
+        .tagline {
+            padding-bottom: 80px;
+        }
+        
+        .card-container {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            /* agar bisa di-scroll jika terlalu banyak card */
+            max-width: 90vw;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            /* Hapus scrollbar di Internet Explorer dan Edge */
+            scrollbar-width: none;
+            /* Hapus scrollbar di Firefox */
+            margin-top: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .card-container::-webkit-scrollbar {
+            display: none;
+            /* Hapus scrollbar di Chrome, Safari, dan Opera */
+        }
+        
+        .card {
+            background-color: #ffff;
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            /* Ukuran fix card */
+            height: 250px;
+            /* Ukuran fix card */
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+        
+        .card-img {
+            width: 100%;
+            height: 80px;
+            border-radius: 25px 25px 0 0;
+            object-fit: cover;
+            padding: 20px;
+        }
+        
+        .card:hover {
+            background-color: #ebebeb;
+        }
+        
+        
+        .btn-semester {
+            margin-right: 28px;
+            padding: 8px 17px;
+            font-size: 16px;
+            border-radius: 8px;
+            background-color: #ffff;
+            /* Warna latar belakang */
+            color: #ff8c00;
+            /* Warna teks */
+            border: none;
+            /* Menghilangkan border */
+            cursor: pointer;
+            /* Menampilkan cursor pointer saat hover */
+            transition: background-color 0.3s;
+            /* Transisi perubahan warna latar */
+            text-align: center;
+        }
+        
+        .btn-semester:hover {
+            background-color: #ff8c00;
+            color: #ffff;
+            /* Warna teks saat hover */
+            border-color: #ff8c00;
+            /* Warna border saat hover */
+            outline: none;
+        }
+        
+        .btn-semester.active {
+            background-color: #ffff;
+            color: #ff8c00;
+        }
+        
+        .btn-materi {
+            padding: 8px 17px;
+            font-size: 16px;
+            border-radius: 8px;
+            background-color: #ff8c00;
+            /* Warna latar belakang */
+            color: #ffff;
+            /* Warna teks */
+            border: none;
+            /* Menghilangkan border */
+            cursor: pointer;
+            /* Menampilkan cursor pointer saat hover */
+            transition: background-color 0.3s;
+            /* Transisi perubahan warna latar */
+            text-align: center;
+        }
+        
+        .btn-materi:hover {
+            background-color: #dd800f;
+            color: #ffff;
+            /* Warna teks saat hover */
+            border-color: #ff8c00;
+            /* Warna border saat hover */
+            outline: none;
+        }
+        
+        .btn-materi.active {
+            background-color: #ff8c00;
+            color: white;
+        }
+        
+        .space {
+            margin-top: 30px;
+        }
+        
+        .card-matkul {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffff;
+        }
+        
+        .card-matkul:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-matkul img {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff8c00, #eb2012);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #eb2012, #ff8c00);
+        }
+        
+        .card-matkul-text {
+            color: #6c757d;
+        }
+        
+        #searchInput {
+            width: 200px;
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo">LearnSync</a>
+            <nav>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="upload.html" class="nav-item">Unggah File</a></li>
+                        <li><a href="ulasan.html" class="nav-item">Ulasan dan Komentar</a></li>
+                    </ul>
+                </nav>
+        </div>
+        <form class="d-flex" id="searchForm">
+            <input class="form-control me-2" type="search" placeholder="Cari Materi" aria-label="Search" id="searchInput">
+            <button class="btn btn-outline-success" type="submit">Cari</button>
+        </form>
+    </header>
+
+    <div class="content">
+        <div class="tagline">
+            <div class="container mt-5">
+                <div class="row align-items-center">
+                    <!-- Gambar (Grid 4) -->
+                    <div class="col-lg-4">
+                        <img src="https://myskill.id/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fheader.8d5d1805.png&w=640&q=75" alt="Belajar" class="img-fluid rounded" />
+                    </div>
+
+                    <!-- Tagline (Grid 8) -->
+                    <div class="col-lg-8">
+                        <h1 class="fw-bold">
+                            Fakultas Ilmu Komputer dan Teknologi Informasi
+                        </h1>
+                        <p class="mt-3">
+                            Temukan berbagai materi pembelajaran berkualitas, berbagi ilmu, dan bangun masa depanmu bersama komunitas kami.
+                        </p>
+                        <button type="button" class="btn-materi" onclick="location.href='#daftar-mata-kuliah'">
+                Lihat Semua Materi
+              </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card-dosen">
+            <h3 class="fw-bold text-center">Dosen-Dosen Ilmu Komputer</h3>
+
+            <div class="card-container" id="card-container">
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/maya-silvi-lydia" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Maya.webp" class="card-img-top" alt="Dr. Maya Silvi Lydia, B.Sc., M.Sc.">
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/mohammad-andri-budiman" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/undefined/statis/lecturer/WD1%20Andri.webp" class="card-img-top" alt="Dr. Mohammad Andri Budiman, S.T., M.Comp.Sc., M.E.M.">
+                        <div class="card-body">
+                            <p class="card-text"> </p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/amalia" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/28-3-amalia-st.webp" class="card-img-top" alt="Dr. Amalia, S.T., M.T.">
+
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/poltak-sihombing" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/28-8-poltak-sihombing.webp" class="card-img-top" alt="Prof. Drs. Poltak Sihombing, M.Kom., Ph.D">
+
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/ade-candra" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/28-5-eng-ade.webp" class="card-img-top" alt="Dr. Eng Ade Candra, S.T., M.Kom.">
+
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/id/dosen/anandhini-medianty-nababan" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen%20Anandhini%20(1).webp" class="card-img-top" alt="Anandhini">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/id/dosen/dewi-sartika-br-ginting" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen%20Dewi%20(1).webp" class="card-img-top" alt="Dewi">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+
+                <a href="https://fasilkom-ti.usu.ac.id/id/dosen/dian-rachmawati" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen%20Dian.webp" class="card-img-top" alt="Dian">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/fuzy-yustika-manik" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen-Fuzy.webp" class="card-img-top" alt="Fuzy">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/id/dosen/handrizal" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen-Handrizal.webp" class="card-img-top" alt="Hendrizal">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/sri-melvani-hardi" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/28-4-sri-melvani-haldi.webp?w=384&q=75" class="card-img-top" alt="Melva">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/id/dosen/amer-sharif" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen%20Amer%20(1).webp" class="card-img-top" alt="Amer">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/pauzi-ibrahim-nainggolan" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen%20Fauzi.webp" class="card-img-top" alt="Pauzi">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/id/dosen/fauzan-nurahmadi" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://simsdm.usu.ac.id/photos/198512292018051001.jpg?v=1550119296?t=1709279553" class="card-img-top" alt="Fauzan">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/id/dosen/herriyance" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Herriyance2.webp?w=384&q=75" class="card-img-top" alt="Herriyance">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://https://fasilkom-ti.usu.ac.id/en/lecturer/t.-henny-febriana-harumy" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Henny.webp?w=384&q=75" class="card-img-top" alt="Heny">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/desilia-selvida" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen%20Desilia%20(1).webp" class="card-img-top" alt="Desi">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/dian-rachmawati" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen%20Dian.webp" class="card-img-top" alt="Dian Rachmawati, S.Si., M.Kom.">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/hayatunnufus" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/199207192020012001.png?w=384&q=75" class="card-img-top" alt="hayatunnufus">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://fasilkom-ti.usu.ac.id/en/lecturer/syahril-efendi" target="_blank" class="card-link">
+                    <div class="card">
+                        <img src="https://konten.usu.ac.id/storage/satker/44/statis/lecturer/Dosen%20Syahril%20(1).webp" class="card-img-top" alt="Prof. Dr. Syahril Efendi, S.Si., M.IT.">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="matkul" id="daftar-mata-kuliah">
+            <h3 class="fw-bold">Daftar Mata Kuliah</h3>
+        
+            <div class="space">
+                <button type="button" class="btn-semester" data-semester="1">Semester 1</button>
+                <button type="button" class="btn-semester" data-semester="2">Semester 2</button>
+                <button type="button" class="btn-semester" data-semester="3">Semester 3</button>
+                <button type="button" class="btn-semester" data-semester="4">Semester 4</button>
+                <button type="button" class="btn-semester" data-semester="5">Semester 5</button>
+                <button type="button" class="btn-semester" data-semester="6">Semester 6</button>
+                <button type="button" class="btn-semester" data-semester="7">Semester 7</button>
+            </div>   
+
+        <div class="container my-4">
+            <div class="row g-3">
+                <!-- Card 1 -->
+                <div class="col-md-3 semester-2">
+                    <div class="card-matkul" data-semester="2">
+                        <img src="https://i.pinimg.com/736x/6c/e1/eb/6ce1eb35504c9e030818d7969b23559a.jpg" class="card-img-top" alt="Matematika Diskrit">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Matematika Diskrit</h5>
+                            <p class="card-text">Materi dasar tentang himpunan, fungsi, relasi, dan logika.</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="col-md-3 semester-2">
+                    <div class="card-matkul" data-semester="2">
+                        <img src="https://i.pinimg.com/736x/0a/64/3c/0a643cb71c17f3ce99f30c443dddff40.jpg" class="card-img-top" alt="Aljabar Linear">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Aljabar Linear</h5>
+                            <p class="card-text">mempelajari konsep matriks, vektor, dan ruang linear.</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="col-md-3 semester-4">
+                    <div class="card-matkul" data-semester="4">
+                        <img src="https://i.pinimg.com/736x/7f/4e/7c/7f4e7cb2ccd3f4eea16847d1953f6cc8.jpg" class="card-img-top" alt="Aljabar Linear">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Jaringan Komputer</h5>
+                            <p class="card-text">Studi lebih lanjut tentang jaringan komputer, topologi, dan model OSI.</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="col-md-3 semester-1">
+                    <div class="card-matkul" data-semester="1">
+                        <img src="https://i.pinimg.com/736x/84/3f/07/843f071542c9525a69f8b5c74a0841b0.jpg" class="card-img-top" alt="Pemrograman Dasar">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Dasar Pemrograman</h5>
+                            <p class="card-text">Materi dasar tentang pemrograman dan algoritma.</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BARIS 2 -->
+                <!-- Card 5 -->
+                <div class="col-md-3 semester-3">
+                    <div class="card-matkul" data-semester="3">
+                        <img src="https://i.pinimg.com/736x/d1/31/30/d1313017d6b565b11d6bd1e8229260ce.jpg" class="card-img-top" alt="Basis Data">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Basis Data</h5>
+                            <p class="card-text">Konsep dasar basis data, SQL, dan desain basis data.</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 7 -->
+                <div class="col-md-3 semester-4">
+                    <div class="card-matkul" data-semester="4">
+                        <img src="https://i.pinimg.com/736x/87/a6/78/87a678d3e349f696618a4ebe2339fa92.jpg" class="card-img-top" alt="Jaringan Komputer">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Jaringan Komputer</h5>
+                            <p class="card-text">Dasar-dasar jaringan komputer dan protokol.</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 8 -->
+                <div class="col-md-3 semester-3">
+                    <div class="card-matkul" data-semester="4">
+                        <img src="https://i.pinimg.com/736x/3c/20/27/3c2027f7a7c0fd02590262c16892c0ca.jpg" class="card-img-top" alt="Pemrograman Web">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pemrograman Web</h5>
+                            <p class="card-text">Dasar-dasar pemrograman web, HTML, CSS, dan JavaScript.</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9 -->
+                <div class="col-md-3 semester-1">
+                    <div class="card-matkul" data-semester="1">
+                        <img src="https://i.pinimg.com/736x/ec/e1/72/ece1722c86b48ef3a4b80acf3aabab63.jpg" class="card-img-top" alt="Matematika Diskrit">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Logika Matematika</h5>
+                            <p class="card-text">Dasar-dasar logika matematika, himpunan, dan fungsi.</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card10 -->
+                <div class="col-md-3 semester-2">
+                    <div class="card-matkul" data-semester="2">
+                        <img src="https://i.pinimg.com/736x/c2/14/80/c21480a5b59a6a47e9618d62e74f1a44.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Sistem Operasi</h5>
+                            <p class="card-text">Dasar-dasar sistem operasi dan konsep kerja komputer</p>
+                            <a href="#" class="btn btn-primary">Lihat Materi </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-1">
+                    <div class="card-matkul" data-semester="1">
+                        <img src="https://i.pinimg.com/736x/a1/05/68/a105681a0fe4c20b4c7037e54c86138d.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"> Organisasi Arsitektur</h5>
+                            <p class="card-text"> Dasar-dasar organisasi arsitektur komputer</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-1">
+                    <div class="card-matkul" data-semester="1">
+                        <img src="https://i.pinimg.com/736x/c0/62/47/c062478c8d3002346b3efb276016c3a2.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Matematika Dasar</h5>
+                            <p class="card-text">Dasar-dasar matematika, aljabar, dan kalkulus</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-1">
+                    <div class="card-matkul" data-semester="1">
+                        <img src="https://i.pinimg.com/736x/48/84/5e/48845e6189481fe97446db90d23e3fc6.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pengantar Ilmu Komputer</h5>
+                            <p class="card-text">Berisi pengenalan komputer dan dasar-dasar ilmu komputer</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-2">
+                    <div class="card-matkul" data-semester="2">
+                        <img src="https://i.pinimg.com/736x/0c/cc/94/0ccc9409e26274c3f74d566814f64044.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Algoritma dan Pemrograman</h5>
+                            <p class="card-text">Mepelajari konsep dasar algoritma sorting, searching, dan lain-lain.</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-2">
+                    <div class="card-matkul" data-semester="2">
+                        <img src="https://i.pinimg.com/736x/b0/72/49/b07249592b8c3066e97a037dd4b86512.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Probalitas dan Statistika</h5>
+                            <p class="card-text">mempelajari tentang konsep dasar teorema limit, dan analisis regresi.</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-3">
+                    <div class="card-matkul" data-semester="3">
+                        <img src="https://i.pinimg.com/736x/f5/f8/4f/f5f84f0dbde9bb6e2d7cbc51991608f1.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Struktur Data</h5>
+                            <p class="card-text">mempelajari konsep dasar, array, linked list, stack, queue, dan tree.</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-3">
+                    <div class="card-matkul" data-semester="3">
+                        <img src="https://i.pinimg.com/736x/4a/d1/95/4ad195e77b97f89d623d191a2d225b5f.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Wirausaha Digital</h5>
+                            <p class="card-text">Konsep dasar berwirausaha secara digital dan non-digital</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-4">
+                    <div class="card-matkul" data-semester="4">
+                        <img src="https://i.pinimg.com/736x/7d/61/df/7d61df4094bae99cde56d085acc166ca.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Analisis dan desain perangkat lunak</h5>
+                            <p class="card-text">Mempelajari konsep dasar analisis dan desain perangkat lunak</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 semester-4">
+                    <div class="card-matkul" data-semester="4">
+                        <img src="https://i.pinimg.com/736x/6a/6f/e7/6a6fe7565e275ec6137b9fdcd668cc37.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Desain dan analisis algoritma</h5>
+                            <p class="card-text">Mempelajari konsep dasar desain dan analisis algoritma</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-4">
+                    <div class="card-matkul" data-semester="4">
+                        <img src="https://i.pinimg.com/736x/75/22/03/7522036e57ded1c6563f1f8c9cd12a92.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Keamanan data dan informasi</h5>
+                            <p class="card-text">Mempelajari konsep dasar keamanan data dan informasi</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-4">
+                    <div class="card-matkul" data-semester="4">
+                        <img src="https://i.pinimg.com/736x/4b/46/eb/4b46ebe942c0152a9dbae8548219a4f6.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pemrograman berorientasi objek</h5>
+                            <p class="card-text">Mempelajari konsep dasar pemrograman berorientasi objek</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-5">
+                    <div class="card-matkul"data-semester="5">
+                        <img src="https://i.pinimg.com/736x/28/e9/07/28e9076be47558429867e1e4db2aeb3c.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Etika Profesi</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar etika profesi</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-5">
+                    <div class="card-matkul" data-semester="5">
+                        <img src="https://i.pinimg.com/736x/4e/2b/4e/4e2b4e8989a5b251add0cd8df8a7ba24.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Kecerdasan Buatan</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar kecerdasan buatan</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-5">
+                    <div class="card-matkul" data-semester="5">
+                        <img src="https://i.pinimg.com/736x/38/27/cb/3827cb626a2b21ecb27d1ad4c4e42726.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Grafika Komputer</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar grafika komputer</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-5">
+                    <div class="card-matkul" data-semester="5">
+                        <img src="https://i.pinimg.com/736x/d0/d4/18/d0d4180671ffc6b594b3faa9679f76fb.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Metodologi penelitian</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar metodologi penelitian</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-5">
+                    <div class="card-matkul" data-semester="5">
+                        <img src="https://i.pinimg.com/736x/38/27/cb/3827cb626a2b21ecb27d1ad4c4e42726.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Permrograman mobile</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar permrograman mobile</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-6">
+                    <div class="card-matkul" data-semester="6">
+                        <img src="https://i.pinimg.com/736x/4e/b7/62/4eb762ca9a814d386c28ed9256cb700d.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Big Data</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar big data</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-6">
+                    <div class="card-matkul" data-semester="6">
+                        <img src="https://i.pinimg.com/736x/14/8d/22/148d22d2ddb34f52f13b0d136b3e75d4.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Internet of Things</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar internet of things</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-6">
+                    <div class="card-matkul" data-semester="6">
+                        <img src="https://i.pinimg.com/736x/a1/4d/0f/a14d0f34f758fb028566eec1a6fa24c6.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pembelajaran mesin</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar pembelajaran mesin</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-6">
+                    <div class="card-matkul" data-semester="6">
+                        <img src="https://i.pinimg.com/736x/3c/d2/c8/3cd2c83aecff56334731d4a6aabaf87d.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Penambangan Data</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar penambangan data</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-6">
+                    <div class="card-matkul" data-semester="6">
+                        <img src="https://i.pinimg.com/736x/dc/ce/62/dcce62f5ce210d78f5e998e8a809e459.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">pengelolaan citra digital</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar pengelolaan citra digital</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-7">
+                    <div class="card-matkul" data-semester="7">
+                        <img src="https://i.pinimg.com/736x/82/b2/36/82b236aaf9f1644325811644ccb7b57c.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">cloud computing</h5>
+                            <p class="card-text">Mempelajari tentang konsep-konsep dasar cloud computing</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-7">
+                    <div class="card-matkul" data-semester="7">
+                        <img src="https://i.pinimg.com/736x/fa/c8/d5/fac8d5b359fae30db4d625a4c5d2f33c.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Bussines intelligence</h5>
+                            <p class="card-text">Mempelajari tentang konsep dasar bussines intelligence</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-7">
+                    <div class="card-matkul" data-semester="7">
+                        <img src="https://i.pinimg.com/736x/c1/fc/72/c1fc720e8695a3d364fc4831e754e749.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Computer vision</h5>
+                            <p class="card-text">Mempelajari tentang konsep dasar computer vision</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-7">
+                    <div class="card-matkul" data-semester="7">
+                        <img src="https://i.pinimg.com/736x/1a/4c/33/1a4c332df1d0f0d330dbc05b9f35a87e.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Human computer interaction</h5>
+                            <p class="card-text">Mempelajari konsep dasar human computer interaction</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 semester-7">
+                    <div class="card-matkul" data-semester="7">
+                        <img src="https://i.pinimg.com/736x/08/98/f3/0898f320024d66debb6f9c11be02cda9.jpg" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Komputasi paralel dan distribusi</h5>
+                            <p class="card-text">Mempelajari konsep dasar komputasi paralel dan distribusi</p>
+                            <a href="#" class="btn btn-primary"> Lihat Materi</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+    <script>
+        // Ambil elemen navbar
+        const navbar = document.querySelector(".navbar");
+
+        // Tambahkan event listener scroll
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                // Ganti nilai 50 sesuai keinginan
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        const button = document.getElementById("changeColorButton");
+
+        button.addEventListener("click", () => {
+            button.classList.toggle("active");
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Cards loaded successfully!");
+        });
+
+        // Kode pencarian
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman form
+
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card-matkul');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-text').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = ''; // Tampilkan card jika cocok
+                } else {
+                    card.style.display = 'none'; // Sembunyikan card jika tidak cocok
+                }
+            });
+        });
+    </script>
+
+    <script>
+      document.querySelectorAll(".btn-semester").forEach(button => {
+    button.addEventListener("click", () => {
+        // Ambil nilai semester dari tombol yang diklik
+        const semester = button.getAttribute("data-semester");
+        console.log("Semester button clicked:", semester); // Debugging tombol yang diklik
+
+        // Ambil semua elemen dengan class 'card-matkul'
+        const cards = document.querySelectorAll(".card-matkul");
+
+        // Iterasi melalui semua card untuk memfilter berdasarkan semester
+        cards.forEach(card => {
+            const cardSemester = card.getAttribute("data-semester");
+            console.log("Card semester:", cardSemester); // Debugging data semester pada card
+
+            // Periksa apakah data-semester dari card cocok dengan tombol yang diklik
+            if (cardSemester === semester) {
+                console.log("Showing card for semester:", semester); // Debugging card yang ditampilkan
+                card.style.display = ''; // Tampilkan card
+            } else {
+                console.log("Hiding card for semester:", cardSemester); // Debugging card yang disembunyikan
+                card.style.display = 'none'; // Sembunyikan card
+            }
+        });
+    });
+});
+    </script>
+</body>
+
+
+</html>

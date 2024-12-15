@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Materi</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #fffacd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .content {
+        max-width: 600px;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+      }
+
+      .content h1 {
+        font-family: "Poppins", sans-serif;
+        font-size: 36px;
+        letter-spacing: 1px;
+        padding-bottom: 20px;
+      }
+
+      .content h1 span {
+        color: #f96d00;
+      }
+
+      form label {
+        font-size: 16px;
+        color: #333;
+        margin-top: 15px;
+        display: block;
+        text-align: left;
+        font-weight: bold;
+      }
+
+      form select,
+      form input[type="text"],
+      form input[type="file"] {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        font-size: 16px;
+        transition: border-color 0.3s;
+      }
+
+      form select:focus,
+      form input[type="text"]:focus,
+      form input[type="file"]:focus {
+        border-color: #f96d00;
+        outline: none;
+      }
+
+      form button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #ff8c00, #eb2012);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      form button:hover {
+        background: linear-gradient(135deg, #eb2012, #ff8c00);
+      }
+
+      .notification-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #4caf50;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        display: none;
+        z-index: 100;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .notification-container.show {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .close-notification {
+        background: none;
+        border: none;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 16px;
+        float: right;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="content">
+      <h1>Unggah <span>Materi</span> di Sini!</h1>
+
+      <form action="upload.php" method="post" enctype="multipart/form-data" id="UploadForm">
+        <label for="semester">Semester:</label>
+        <select id="semester" name="semester" required>
+          <option value="">Pilih Semester</option>
+          <option value="sem1">1</option>
+          <option value="sem2">2</option>
+          <option value="sem3">3</option>
+          <option value="sem4">4</option>
+          <option value="sem5">5</option>
+          <option value="sem6">6</option>
+          <option value="sem7">7</option>
+        </select>
+
+        <label for="matkul">Nama Mata Kuliah:</label>
+        <select id="matkul" name="matkul" required>
+          <option value="">Pilih Mata Kuliah</option>
+        </select>
+
+        <label for="materi">Nama Materi:</label>
+        <input type="text" id="materi" name="materi" placeholder="Nama Materi" required/>
+
+        <label for="file">Unggah File:</label>
+        <input type="file" id="file" name="file" required />
+
+        <button type="submit">Unggah</button>
+        
+      </form>
+    </div>
+
+    <div class="notification-container" id="notificationSuccess">
+      Materi berhasil diunggah!
+      <button
+        class="close-notification"
+        onclick="hideNotification('notificationSuccess')"
+      >
+        ×
+      </button>
+    </div>
+    <div
+      class="notification-container"
+      id="notificationError"
+      style="background-color: #e65900"
+    >
+      Gagal mengunggah materi, coba lagi.
+      <button
+        class="close-notification"
+        onclick="hideNotification('notificationError')"
+      >
+        ×
+      </button>
+    </div>
+
+
+    
+
+    <script>
+      // Daftar mata kuliah berdasarkan semester
+      const mataKuliahData = {
+        sem1: ["Algoritma dan Pemrograman", "Matematika Diskrit", "Basis Data"],
+        sem2: ["Struktur Data", "Rekayasa Perangkat Lunak", "Pemrograman Web"],
+        sem3: ["Sistem Operasi", "Jaringan Komputer", "Kalkulus"],
+        sem4: ["Pemrograman Berorientasi Objek", "Komputasi Awan","Teori Automata"],
+        sem5: ["Kecerdasan Buatan", "Pengembangan Aplikasi Mobile", "Keamanan Jaringan"],
+        sem6: ["Analisis dan Desain Sistem", "Manajemen Proyek TI", "Pemrograman Game"],
+        sem7: ["Skripsi", "Pengolahan Citra Digital", "Big Data"],
+      };
+
+      // Fungsi untuk memperbarui mata kuliah berdasarkan semester
+      function updateMataKuliah(semester) {
+        const matkulSelect = document.getElementById("matkul");
+        matkulSelect.innerHTML = "<option value=''>Pilih Mata Kuliah</option>"; // Reset opsi mata kuliah
+
+        if (semester) {
+          const matkulList = mataKuliahData[semester] || [];
+          matkulList.forEach((matkul) => {
+            const option = document.createElement("option");
+            option.value = matkul;
+            option.textContent = matkul;
+            matkulSelect.appendChild(option);
+          });
+        }
+      }
+
+      // Event listener untuk semester
+      document
+        .getElementById("semester")
+        .addEventListener("change", function () {
+          const selectedSemester = this.value;
+          updateMataKuliah(selectedSemester);
+        });
+
+      // Fungsi untuk menampilkan notifikasi
+      function showNotification(type) {
+        const notification = document.getElementById(type);
+        notification.classList.add("show");
+        setTimeout(() => {
+          notification.classList.remove("show");
+        }, 3000);
+      }
+
+      document
+        .getElementById("UploadForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const isSuccess = Math.random() > 0.5; // Simulasi respons sukses/gagal
+          if (isSuccess) {
+            showNotification("notificationSuccess");
+          } else {
+            showNotification("notificationError");
+          }
+        });
+
+      // Fungsi untuk menutup notifikasi
+      function hideNotification(type) {
+        const notification = document.getElementById(type);
+        notification.classList.remove("show");
+      }
+    </script>
+  </body>
+</html>

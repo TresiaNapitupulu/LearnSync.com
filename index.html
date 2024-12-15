@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Learnsync</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<body>
+  
+  <style>
+   
+    .navbar-brand {
+      color: orange !important;
+      font-weight: bold;
+      font-size: 1.8rem; 
+    }
+  
+  
+    .nav-link {
+      color: #333 !important;
+      font-weight: bold; 
+      transition: color 0.3s ease;
+    }
+  
+    .nav-link:hover {
+      color: orange !important;
+    }
+  
+
+    .nav-item-signup .nav-link {
+      border: 2px solid orange;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: orange !important;
+      transition: all 0.3s ease;
+    }
+  
+    .nav-item-signup .nav-link:hover {
+      background-color: orange;
+      color: white !important;
+    }
+  
+    .scrolled {
+      background-color: #f1f0f6 !important;
+      transition: background-color 0.3s ease;
+    }
+  
+    .content {
+      margin-top: 70px;
+    }
+    
+  </style>
+
+  <nav id="mainNavbar" class="navbar navbar-expand-lg bg-white fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">LearnSync</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          
+          <li class="nav-item nav-item-login">
+            <a class="nav-link login-link" href="masuk.html">Log in</a>
+          </li>
+          <li class="nav-item nav-item-signup">
+            <a class="nav-link signup-link" href="daftar.html">Sign Up</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <script>
+
+    window.onscroll = function() {
+      const navbar = document.getElementById("mainNavbar");
+      if (window.scrollY > 50) { 
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    };
+  </script>
+  
+
+<br>
+<br>
+<br>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            
+            color: #f96d00;
+            font-family: 'Arial', sans-serif; 
+            font-weight: bold;
+        }
+        .main {
+        
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: url('https://i.pinimg.com/736x/ce/e2/a9/cee2a9e3437fd47ef09228180d016070.jpg') center/cover no-repeat;
+        }
+        .content {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 60px;
+            letter-spacing: 2px;
+        }
+        .content h1 span {
+            color: #f96d00; 
+        }
+        .content .par {
+            margin-top: 20px;
+            font-size: 18px;
+            color: black; 
+            line-height: 1.6;
+        }
+        .content .cn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: #f96d00; 
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .content .cn a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        .content .cn:hover {
+            background: #e65900; 
+        }
+        @media screen and (max-width: 768px) {
+            .content h1 {
+                font-size: 40px;
+            }
+            .content .par {
+                font-size: 16px;
+            }
+            .content .cn {
+                padding: 10px 30px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: #f96d00;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+        }
+
+        .main {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            
+        }
+
+        .content {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 60px;
+            letter-spacing: 2px;
+        }
+
+        .content h1 span {
+            color: #f96d00;
+        }
+
+        .cn {
+            display: inline-block;
+            padding: 10px 30px;
+            font-size: 18px;
+            color: #fff;
+            background: #f96d00;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .cn a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .cn:hover {
+            background: #e65900;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="content">
+            <br><br><br><br>
+            <h1>Belajar Tanpa Batas <br><span>Raih Masa Depan</span></h1>
+
+            <!-- Card Wrapper -->
+            <div class="card bg-light text-dark mt-4 mx-auto" style="max-width: 600px; border: 2px solid #f96d00; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                <div class="card-body">
+                    <p class="par">
+                        LearnSync hadir untuk mendukung perjalanan belajar anda <br>
+                        dengan menyediakan akses terhadap materi edukatif,
+                        kapan saja dan di mana saja.
+                    </p>
+                </div>
+            </div>
+
+    
+        </div>
+    </div>
+</body>
+</html>
+<br>
+<br>
+<br>
+
+<style>
+    .card {
+      border: 2px solid #f96d00; /* Outline oranye */
+      transition: transform 0.3s, box-shadow 0.3s; /* Animasi hover */
+    }
+  
+    .card:hover {
+      transform: scale(1.05); /* Memperbesar sedikit saat hover */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+    }
+
+    h2 {
+        color: black; /* Warna teks hitam */
+        text-align: left; 
+        padding-left: 20px;
+    }
+    
+  </style>
+  
+
+<br>
+
+
+<style>
+  .container {
+      text-align: center;
+      color: #f96d00;
+  }
+
+  h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      
+  }
+
+  h1 span {
+      color: #000;
+  }
+
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+          transform: translateY(-20px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+
+  .learnsync-animation {
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+      background: url('https://cdn-icons-png.flaticon.com/512/1055/1055687.png') no-repeat center/contain;
+      animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+      0%, 100% {
+          transform: translateY(0);
+      }
+      50% {
+          transform: translateY(-20px);
+      }
+  }
+
+  .btn-get-started {
+      display: inline-block;
+      padding: 10px 30px;
+      font-size: 18px;
+      color: #fff;
+      background: #f96d00;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+  }
+
+  .btn-get-started:hover {
+      background: #e65900;
+  }
+</style>
+
+<body>
+  <div class="container">
+      <h1>Temukan<span> Apa yang Kamu Cari</span> dengan Learnsync</h1>
+      <div class="learnsync-animation"></div>
+      <a href="page.html" class="btn-get-started">MULAI</a>
+  </div>
+</body>
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+
+      .text {
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        color: white;
+        font-weight: bold;
+        font-size: 1.5rem; 
+        background-color: rgba(0, 0, 0, 0.5); 
+        
+        border-radius: 5px;
+        text-align: center;
+      }
+    </style>
+    
+    <br>
+
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  
+  
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+    text-decoration: none;
+  }
+  .team{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: radial-gradient(#281c3e, #0f051d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .team-content {
+    width: 100%;
+    max-width: 1350px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    justify-items: center; /* Menyelaraskan item grid ke tengah */
+}
+
+  .team-content img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+  }
+  .center h1{
+    color: #fff;
+    font-size: 4rem;
+    text-align: center;
+  }
+  .box{
+    width: 200px;
+    height: 280px; 
+    padding: 16px;
+    background: #1b1229;
+    border-radius: 15px;
+    transition: all .38s ease;
+  }
+  .box h3{
+    font-size: 23px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .icons i{
+    display: inline-block;
+    color: #fff;
+    font-size: 20px;
+    margin: 0 8px;
+    transition: all .38s ease;
+  }
+  .icons i:hover{
+    transform: scale(1.2);
+  }
+  .box:hover{
+    transform: translateY(-10px);
+    cursor: pointer;
+  }
+  @media(max-width: 1240px){
+    .team{
+      width: 100%;
+      height: auto;
+      padding: 90px 2%;
+    }
+    .center h1{
+      font-size: 3.2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<section class="team">
+  <div class="center">
+    <h1>Tentang Kami</h1>
+  </div>
+
+  <div class="team-content">
+    <div class="box">
+      <img src="img/01.jpeg">
+      <h3>Maisyah</h3>
+    
+      <div class="icons">
+        <a href="https://www.instagram.com/msyhaulia__/" target="_blank">
+          <i class="ri-instagram-fill"></i>
+        </a>
+        <a href="https://github.com/ninamsyh" target="_blank">
+          <i class="ri-github-fill"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="img/02.jpeg">
+      <h3>Tresia</h3>
+      
+      <div class="icons">
+        <a href="https://www.instagram.com/siiaaa.29/" target="_blank">
+          <i class="ri-instagram-fill"></i>
+        </a>
+        <a href="https://github.com/TresiaNapitupulu" target="_blank">
+          <i class="ri-github-fill"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="img/03.jpeg">
+      <h3>Virginia</h3>
+      
+      <div class="icons">
+        <a href="https://www.instagram.com/virginiaaaa_s/" target="_blank">
+          <i class="ri-instagram-fill"></i>
+        </a>
+        <a href="https://github.com/VirginiaSimanungkalit" target="_blank">
+          <i class="ri-github-fill"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="box">
+      <img src="img/04.jpg">
+      <h3>Luthfiah</h3>
+      
+      <div class="icons">
+        <a href="https://www.instagram.com/luthfiahamandap/" target="_blank">
+          <i class="ri-instagram-fill"></i>
+        </a>
+        <a href="https://github.com/Luthfiahamandap" target="_blank">
+          <i class="ri-github-fill"></i>
+        </a>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</section>
+<br>
+<br>
+<br>
+
+   
+
